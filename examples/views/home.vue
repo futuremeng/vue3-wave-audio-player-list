@@ -2,7 +2,7 @@
  * @Author: be_loving@163.com 
  * @Date: 2024-10-23 13:32:11
  * @LastEditors: be_loving@163.com 
- * @LastEditTime: 2024-10-31 09:57:04
+ * @LastEditTime: 2024-10-31 11:20:15
  * @FilePath: /vue3-wave-audio-player/examples/views/home.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -11,7 +11,7 @@
     <Vue3WaveAudioPlayerList
       wave-type="mirror"
       :data="demo"
-      :disable-seeking="true"
+      :disable-seeking="false"
       :wave-animation="false"
       :current-time-visible="true"
       :duration-time-visible="true"

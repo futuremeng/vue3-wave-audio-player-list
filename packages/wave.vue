@@ -332,7 +332,7 @@ export default {
       path2: null,
       animationsvg: null,
       animationsvgx: null,
-      audio: null,
+
       durationContainer: null,
       seekSlider: null,
       currentTimeContainer: null,
@@ -466,10 +466,11 @@ export default {
         this.$emit('onPlay', {
           index: this.indexSelf,
           src: this.blobUrl,
-          seek:
-            this.seekSlider.value < this.seekSlider.max
-              ? this.seekSlider.value
-              : 0,
+          seek: this.durationTime > 0 ? this.seekSlider.value : 0,
+          ratio:
+            this.durationTime > 0
+              ? 1
+              : this.seekSlider.value / this.seekSlider.max,
         })
 
         this.svg.unpauseAnimations()

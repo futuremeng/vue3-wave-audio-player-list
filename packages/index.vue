@@ -24,6 +24,7 @@
       :circle="circle"
       @on-play="clickPlay"
       @on-pause="clickPause"
+      @tried-to-seek-to="seekTo"
     ></Vue3Wave>
   </div>
   <audio
@@ -160,6 +161,7 @@ export default {
       },
       audio: null,
       raf: null,
+      seekRatio: 1,
     }
   },
   computed: {
@@ -181,9 +183,15 @@ export default {
     },
     clickPlay($event) {
       if (this.audio.src !== $event.src) {
+        console.log($event)
         this.indexSync = $event.index
         this.audio.src = $event.src
-        this.audio.currentTime = $event.seek
+
+        if ($event.ratio < 1) {
+          this.seekRatio = $event.ratio
+        } else {
+          this.audio.currentTime = $event.seek
+        }
       }
       this.$nextTick(() => {
         this.audio.play()
@@ -192,6 +200,9 @@ export default {
     },
     onLoadedmetadata($event) {
       this.durationTime = this.audio.duration
+      if (this.seekRatio < 1) {
+        this.audio.currentTime = this.durationTime * this.seekRatio
+      }
       this.$emit('onLoadedmetadata', $event)
     },
     clickPause() {
@@ -201,6 +212,9 @@ export default {
     whilePlaying() {
       this.currentTime = this.audio.currentTime
       this.raf = requestAnimationFrame(this.whilePlaying)
+    },
+    seekTo($event) {
+      this.audio.currentTime = $event
     },
     onFinish($event) {
       this.currentTime = this.durationTime
