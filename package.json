@@ -1,0 +1,56 @@
+{
+  "name": "@futuremeng/vue3-wave-audio-player-list",
+  "version": "1.0.0",
+  "description": "Vue 3 Component for wave audio player list",
+  "license": "MIT",
+  "author": "Future Meng <futuremeng@gmail.com>,Ariful Islam <imdarif122@mail.com>",
+  "private": false,
+  "files": [
+    "packages"
+  ],
+  "main": "./packages/index.js",
+  "keywords": [
+    "vue-audio-player",
+    "vue3-audio-player",
+    "vue-audio",
+    "vue3-audio",
+    "vue-music",
+    "vue3-music",
+    "audio-player",
+    "audio",
+    "wave",
+    "inline",
+    "audio-player-list"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/futuremeng/vue3-wave-audio-player-list"
+  },
+  "dependencies": {
+    "@any-touch/core": "^2.2.0",
+    "@any-touch/pan": "^2.2.0",
+    "core-js": "^3.8.3",
+    "vue": "^3.2.13",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "eslint": "^8.44.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "prettier": "^3.0.0",
+    "vite": "^4.4.3"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
