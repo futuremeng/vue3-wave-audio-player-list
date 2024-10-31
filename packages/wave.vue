@@ -466,11 +466,11 @@ export default {
         this.$emit('onPlay', {
           index: this.indexSelf,
           src: this.blobUrl,
-          seek: this.durationTime > 0 ? this.seekSlider.value : 0,
+          seek: this.seekSlider.value,
           ratio:
-            this.durationTime > 0
-              ? 1
-              : this.seekSlider.value / this.seekSlider.max,
+            this.seekSlider.max === '100'
+              ? this.seekSlider.value / this.seekSlider.max
+              : 1,
         })
 
         this.svg.unpauseAnimations()
