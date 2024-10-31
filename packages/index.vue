@@ -1,8 +1,11 @@
 <template>
-  <div class="audio-player-list">
+  <div
+    class="audio-player-list-item"
+    v-for="(item, index) in data"
+    :key="index"
+    :style="itemStyle"
+  >
     <Vue3Wave
-      v-for="(item, index) in data"
-      :key="index"
       :title="item.title"
       :src="item.src"
       :current-time="currentTime"
@@ -84,6 +87,10 @@ export default {
     'onEnded',
   ],
   props: {
+    gutter: {
+      type: Number,
+      default: 20,
+    },
     circle: {
       type: Boolean,
       default: false,
@@ -99,7 +106,6 @@ export default {
       type: Number,
       default: 200,
     },
-
     waveHeight: {
       type: Number,
       default: 40,
@@ -155,6 +161,13 @@ export default {
       audio: null,
       raf: null,
     }
+  },
+  computed: {
+    itemStyle() {
+      return {
+        margin: this.gutter + 'px 0',
+      }
+    },
   },
   beforeMount() {},
   mounted() {
