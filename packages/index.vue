@@ -186,12 +186,8 @@ export default {
         console.log($event)
         this.indexSync = $event.index
         this.audio.src = $event.src
-
-        if ($event.ratio < 1) {
-          this.seekRatio = $event.ratio
-        } else {
-          this.audio.currentTime = $event.seek
-        }
+        this.audio.currentTime = $event.seek
+        this.durationTime = $event.duration
       }
       this.$nextTick(() => {
         this.audio.play()
@@ -199,10 +195,6 @@ export default {
       })
     },
     onLoadedmetadata($event) {
-      this.durationTime = this.audio.duration
-      if (this.seekRatio < 1) {
-        this.audio.currentTime = this.durationTime * this.seekRatio
-      }
       this.$emit('onLoadedmetadata', $event)
     },
     clickPause() {

@@ -257,10 +257,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    durationTime: {
-      type: Number,
-      default: 0,
-    },
     durationTimeVisible: {
       type: Boolean,
       default: true,
@@ -286,19 +282,6 @@ export default {
       } else {
         this.svg.pauseAnimations()
         this.audioPaused = true
-      }
-    },
-    durationTime(newVal) {
-      if (this.indexSelf === this.indexSync) {
-        this.durationContainer_textContent = this.calculateTime(newVal)
-        this.seekSlider.max = newVal
-        this.svg.unpauseAnimations()
-        this.animationsvg_dur = newVal + 's'
-        if (!this.animation) {
-          this.animationsvgx_dur = newVal + 's'
-        }
-        this.svg.pauseAnimations()
-        this.svg.setCurrentTime(0)
       }
     },
   },
@@ -359,6 +342,8 @@ export default {
       canPlay: false,
       waiting: false,
       blobUrl: '',
+
+      durationTime: 0,
     }
   },
   beforeMount() {
@@ -404,6 +389,18 @@ export default {
     if (this.loadAudioOnmount) this.runAudioPath()
   },
   methods: {
+    updateDuration(newVal) {
+      this.durationTime = newVal
+      this.durationContainer_textContent = this.calculateTime(newVal)
+      this.seekSlider.max = newVal
+      this.svg.unpauseAnimations()
+      this.animationsvg_dur = newVal + 's'
+      if (!this.animation) {
+        this.animationsvgx_dur = newVal + 's'
+      }
+      this.svg.pauseAnimations()
+      this.svg.setCurrentTime(0)
+    },
     async runAudioPath() {
       await this.getAudioData(this.src)
     },
@@ -428,6 +425,7 @@ export default {
               fileReader.result,
               (bufferData) => {
                 this.audioData = bufferData
+                this.updateDuration(this.audioData.duration)
                 this.loadingAudioData = false
                 this.loadedAudioData = true
                 this.svgDraw()
@@ -462,14 +460,14 @@ export default {
         return this.runAudioPath()
       }
       if (this.audioPaused) {
+        if (this.durationTime - this.seekSlider.value < 0.1) {
+          this.seekSlider.value = 0
+        }
         this.$emit('onPlay', {
           index: this.indexSelf,
           src: this.blobUrl,
           seek: this.seekSlider.value,
-          ratio:
-            this.seekSlider.max === '100'
-              ? this.seekSlider.value / this.seekSlider.max
-              : 1,
+          duration: this.durationTime,
         })
 
         this.svg.unpauseAnimations()
@@ -477,7 +475,6 @@ export default {
         this.audioPaused = false
       } else {
         this.$emit('onPause')
-
         this.svg.pauseAnimations()
         this.audioPaused = true
       }
