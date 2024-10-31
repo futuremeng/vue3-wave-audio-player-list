@@ -2,14 +2,14 @@
  * @Author: be_loving@163.com
  * @Date: 2024-10-22 18:49:23
  * @LastEditors: be_loving@163.com 
- * @LastEditTime: 2024-10-31 10:14:06
+ * @LastEditTime: 2024-10-31 10:22:13
  * @FilePath: /vue3-wave-audio-player-list/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 
 # Vue 3 wave-audio-player-list
 
-![Image demo](https://github.com/futuremeng/vue3-wave-audio-player-list/raw/master/preview.png)
+![Image demo](https://github.com/futuremeng/vue3-wave-audio-player-list/blob/main/preview.png)
 
 ## NPM install
 
