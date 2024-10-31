@@ -446,6 +446,7 @@ export default {
         })
     },
     svgDraw() {
+      this.audioContext.close()
       const path = this.linearPath(this.audioData, this.playerOptions)
       // console.log(path)
       if (!this.animation) {
