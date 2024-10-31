@@ -354,7 +354,6 @@ export default {
       clipPathX: 'left-to-right-x',
       clipPathA: 'left-to-right',
       audioContext: null,
-      audioSource: null,
       loadingAudioData: false,
       loadedAudioData: false,
       canPlay: false,
@@ -386,7 +385,6 @@ export default {
     this.clipPathA += '-' + Math.random().toString(36).slice(2)
 
     this.audioContext = new AudioContext()
-    this.audioSource = this.audioContext.createBufferSource()
   },
   mounted() {
     this.playPathButton = this.$refs.player.querySelector('#playPathButton')
