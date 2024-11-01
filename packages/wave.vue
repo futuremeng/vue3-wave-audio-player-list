@@ -66,7 +66,7 @@
       {{ currentTimeContainer_textContent }}
     </div>
     <div id="slider" part="slider" ref="slider">
-      <div id="title" v-show="title">
+      <div id="title" v-show="title" :style="{ lineHeight: waveHeight + 'px' }">
         {{ title }}
       </div>
       <svg
@@ -1291,7 +1291,6 @@ export default {
 #title {
   position: absolute;
   left: 10px;
-  top: 8px;
   color: #858a8d;
   margin: 0px 10px;
   font-size: 16px;
