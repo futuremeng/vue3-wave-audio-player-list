@@ -271,17 +271,7 @@ export default {
     },
     currentTime(newVal) {
       if (this.indexSelf === this.indexSync) {
-        if (newVal === this.durationTime) {
-          this.seekSlider.value = this.seekSlider.max
-          this.svg.setCurrentTime(this.durationTime)
-          this.svg.pauseAnimations()
-          this.audioPaused = true
-        } else {
-          this.whilePlaying()
-        }
-      } else {
-        this.svg.pauseAnimations()
-        this.audioPaused = true
+        this.updateCurrentTime(newVal)
       }
     },
   },
@@ -389,6 +379,16 @@ export default {
     if (this.loadAudioOnmount) this.runAudioPath()
   },
   methods: {
+    updateCurrentTime(newVal) {
+      if (newVal === this.durationTime) {
+        this.seekSlider.value = this.seekSlider.max
+        this.svg.setCurrentTime(this.durationTime)
+        this.svg.pauseAnimations()
+        this.audioPaused = true
+      } else {
+        this.whilePlaying()
+      }
+    },
     updateDuration(newVal) {
       this.durationTime = newVal
       this.durationContainer_textContent = this.calculateTime(newVal)
@@ -492,8 +492,6 @@ export default {
         return this.$emit('triedToSeek', false)
       }
       if (this.indexSelf === this.indexSync) {
-        // this.path2_display = 'block'
-        // this.svg.setCurrentTime(this.seekSlider.value)
         this.$emit('triedToSeek', true)
         this.$emit('triedToSeekTo', this.seekSlider.value)
       }
