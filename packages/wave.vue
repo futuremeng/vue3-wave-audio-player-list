@@ -65,7 +65,7 @@
     >
       {{ currentTimeContainer_textContent }}
     </div>
-    <div id="slider" part="slider" ref="slider">
+    <div id="slider" part="slider" ref="slider" :class="{ 'slider-expand': timesHidden }">
       <div id="title" v-show="title" :style="{ lineHeight: waveHeight + 'px' }">
         {{ title }}
       </div>
@@ -75,8 +75,9 @@
         ref="svg"
         xmlns="http://www.w3.org/2000/svg"
         :viewBox="'0 0 ' + waveWidth + ' ' + waveHeight"
-        :width="waveWidth"
+        :width="timesHidden ? '100%' : waveWidth"
         :height="waveHeight"
+        preserveAspectRatio="none"
       >
         <!-- <template v-if="animation"> -->
         <defs>
@@ -273,6 +274,11 @@ export default {
       if (this.indexSelf === this.indexSync) {
         this.updateCurrentTime(newVal)
       }
+    },
+  },
+  computed: {
+    timesHidden() {
+      return !this.currentTimeVisible || !this.durationTimeVisible
     },
   },
   data() {
@@ -1313,6 +1319,9 @@ export default {
 }
 #slider {
   position: relative;
+}
+#slider.slider-expand {
+  flex: 1 1 auto;
 }
 
 #duration,
