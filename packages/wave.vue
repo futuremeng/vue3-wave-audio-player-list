@@ -1318,10 +1318,13 @@ export default {
   stroke-linecap: round;
 }
 #slider {
-  position: relative;
+  position: relative !important;
 }
 #slider.slider-expand {
   flex: 1 1 auto;
+}
+#slider.slider-expand #svg {
+  margin: 0;
 }
 
 #duration,
