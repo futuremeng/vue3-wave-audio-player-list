@@ -66,7 +66,7 @@
       {{ currentTimeContainer_textContent }}
     </div>
     <div id="slider" part="slider" ref="slider" :class="{ 'slider-expand': timesHidden }">
-      <div id="title" v-show="title">
+      <div id="title" ref="title" v-show="title">
         {{ title }}
       </div>
       <svg
@@ -275,6 +275,9 @@ export default {
         this.updateCurrentTime(newVal)
       }
     },
+    waveHeight() {
+      this.syncTitleHeight()
+    },
   },
   computed: {
     timesHidden() {
@@ -382,9 +385,30 @@ export default {
     this.svg.pauseAnimations()
     this.animationsvg_val = '-' + (this.waveWidth + 2) + ';-1'
 
+    this.syncTitleHeight()
+    if (typeof ResizeObserver !== 'undefined') {
+      this.titleResizeObserver = new ResizeObserver(() => {
+        this.syncTitleHeight()
+      })
+      this.titleResizeObserver.observe(this.$refs.title)
+    }
+
     if (this.loadAudioOnmount) this.runAudioPath()
   },
+  beforeUnmount() {
+    if (this.titleResizeObserver) {
+      this.titleResizeObserver.disconnect()
+      this.titleResizeObserver = null
+    }
+  },
   methods: {
+    syncTitleHeight() {
+      const title = this.$refs.title
+      const slider = this.$refs.slider
+      if (!title || !slider) return
+      const titleHeight = title.offsetHeight
+      slider.style.minHeight = Math.max(titleHeight, this.waveHeight) + 'px'
+    },
     updateCurrentTime(newVal) {
       if (newVal === this.durationTime) {
         this.seekSlider.value = this.seekSlider.max
@@ -1323,6 +1347,8 @@ export default {
 }
 #slider {
   position: relative !important;
+  display: flex !important;
+  align-items: center !important;
 }
 #slider.slider-expand {
   flex: 1 1 auto;
@@ -1343,7 +1369,8 @@ export default {
 }
 #seek-slider {
   position: absolute;
-  top: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%);
   width: 100%;
   left: 0;
 }
