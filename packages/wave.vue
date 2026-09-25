@@ -66,7 +66,7 @@
       {{ currentTimeContainer_textContent }}
     </div>
     <div id="slider" part="slider" ref="slider" :class="{ 'slider-expand': timesHidden }">
-      <div id="title" v-show="title" :style="{ lineHeight: waveHeight + 'px' }">
+      <div id="title" v-show="title">
         {{ title }}
       </div>
       <svg
@@ -1293,15 +1293,19 @@ export default {
   transition: 0.2s;
 }
 #title {
-  position: absolute;
+  position: absolute !important;
   left: 10px;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
   color: #858a8d;
   margin: 0px 10px;
   font-size: 16px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4 !important;
   overflow: visible;
 }
 #svg {
+  display: block !important;
   margin: 0 10px;
   overflow: visible;
   stroke-width: 1px;
@@ -1339,6 +1343,7 @@ export default {
 }
 #seek-slider {
   position: absolute;
+  top: 0 !important;
   width: 100%;
   left: 0;
 }
